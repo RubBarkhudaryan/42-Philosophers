@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:16:58 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/05/06 21:08:41 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/05/07 19:28:10 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_error(int error_status, int opt_arg)
 	if (error_status == 1)
 		printf("Error: Invalid arguments count\n");
 	else if (error_status == 2)
-		printf("Error: Philos count out of range (1 - 1000): %d\n", opt_arg);
+		printf("Error: Philos count out of range (1 - 200): %d\n", opt_arg);
 	else if (error_status == 3)
 		printf("Error: Invalid character found\n");
 	else if (error_status == 4)
@@ -51,7 +51,7 @@ int	is_valid(char **argv)
 	int	philo_count;
 
 	philo_count = ft_atoi(argv[1]);
-	if (philo_count <= 0 || philo_count > 1000)
+	if (philo_count < 1 || philo_count > 200)
 		return (ft_error(2, philo_count), 0);
 	if (contains_symbols(argv))
 		return (ft_error(3, 0), 0);
