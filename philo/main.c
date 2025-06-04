@@ -6,53 +6,31 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/05/14 19:03:10 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/06/04 19:26:50 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
 
-static void	*print()
+void	*routine(void *arg)
 {
-	printf("Thread created\n");
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	while (1)
+	{
+		if (ft_think(philo))
+			break ;
+		if (ft_forks(philo))
+			break ;
+		if (ft_eat(philo))
+			break ;
+		if (ft_sleep(philo))
+			break ;
+	}
 	return (NULL);
 }
 
-static void	free_philos(t_philo *philos, int count)
-{
-	philos = (void *)philos;
-	count = (long) count;
-	printf("freeing philos array...\n");
-}
-
-static t_philo	*init_philos(char **argv)
-{
-	int		i;
-	int		count;
-	t_philo	*philos;
-
-	i = 0;
-	count = ft_atoi(argv[1]);
-	philos = (t_philo *)malloc(sizeof(t_philo) * count);
-	if (!philos)
-		return (ft_error(5, 0), NULL);
-	while (i < count)
-	{
-		philos[i].id = i + 1;
-		philos[i].die = ft_atoi(argv[2]);
-		philos[i].eat = ft_atoi(argv[3]);
-		philos[i].sleep = ft_atoi(argv[4]);
-		if (argv[5])
-			philos[i].must_eat = ft_atoi(argv[5]);
-		else
-			philos[i].must_eat = -1;
-		if (pthread_create(&philos[i].philo, NULL, &print, NULL) != 0)
-			return (free_philos(philos, i), NULL);
-		usleep(42);
-		++i;
-	}
-	return (philos);
-}
 
 int	main(int argc, char **argv)
 {
