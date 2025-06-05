@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:16:58 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/05/14 19:03:16 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/06/05 21:17:34 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,6 @@ static int	contains_symbols(char **argv)
 	return (0);
 }
 
-void	ft_error(int error_status, int opt_arg)
-{
-	if (error_status == 1)
-		printf("Error: Invalid arguments count\n");
-	else if (error_status == 2)
-		printf("Error: Philos count out of range (1 - 200): %d\n", opt_arg);
-	else if (error_status == 3)
-		printf("Error: Invalid character found\n");
-	else if (error_status == 4)
-		printf("Error: Argument out of range (1 - %d)\n", INT_MAX);
-	else if (error_status == 5)
-		printf("Error: Philos initialization failed\n");
-}
-
 int	is_valid(char **argv)
 {
 	int	i;
@@ -66,6 +52,20 @@ int	is_valid(char **argv)
 		++i;
 	}
 	return (1);
+}
+
+void	ft_error(int error_status, int opt_arg)
+{
+	if (error_status == 1)
+		printf("Error: Invalid arguments count\n");
+	else if (error_status == 2)
+		printf("Error: Philos count out of range (1 - 200): %d\n", opt_arg);
+	else if (error_status == 3)
+		printf("Error: Invalid character found\n");
+	else if (error_status == 4)
+		printf("Error: Argument out of range (1 - %d)\n", INT_MAX);
+	else if (error_status == 5)
+		printf("Error: Philos initialization failed\n");
 }
 
 void	print_action(int philo, char action, long long timestamp)

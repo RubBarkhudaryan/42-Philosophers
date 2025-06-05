@@ -1,38 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers_bonus.h                               :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/05/06 21:09:07 by rbarkhud         ###   ########.fr       */
+/*   Created: 2025/06/05 20:17:31 by rbarkhud          #+#    #+#             */
+/*   Updated: 2025/06/05 20:27:32 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILOSOPHERS_BONUS_H
+#ifndef PHILOSOPHERS_H
 
-# define PHILOSOPHERS_BONUS_H
+# define PHILOSOPHERS_H
 
 # include <stdio.h>
-# include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
-# include <limits.h>
+# include <stdlib.h>
+# include <stdbool.h>
 # include <pthread.h>
+# include <sys/time.h>
 
-typedef struct s_thread
+typedef struct s_data	t_data;
+typedef struct s_philo	t_philo;
+typedef struct s_fork	t_fork;
+
+struct s_data
 {
-	int	t;
-}	t_thread;
+	
+};
 
-/*philo utils*/
-int		is_valid(char **argv);
-void	ft_error(int error_status, int opt_arg);
+struct s_philo
+{
+	
+};
 
-/*libft functions*/
-int		ft_atoi(char *str);
-int		ft_isdigit(char c);
-int		ft_inset(char c, char *set);
+struct s_fork
+{
+	
+};
 
 #endif
