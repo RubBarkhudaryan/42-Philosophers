@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/06/05 21:20:57 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:59:52 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <limits.h>
 # include <pthread.h>
@@ -43,23 +44,41 @@ struct s_data
 	int				eat;
 	int				sleep;
 	int				must_eat;
-	pthread_t		*philos;
+	long long		start_time;
+	pthread_t		*threads;
+	t_philo			*philos;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	print_mutex;
 };
 
 /*philo utils*/
-int		is_valid(char **argv);
-void	print_action(int philo, char action, long long timestamp);
-void	ft_error(int error_status, int opt_arg);
+bool			is_valid(char **argv);
+void			print_action(t_philo *philo, char action, long long timestamp);
+void			ft_error(int error_status, int opt_arg);
+void			free_data(t_data **data);
+void			ft_usleep(long long ms);
+
+/*init utils*/
+void			cast_str_data(t_data **data, char **argv);
 
 /*init functions*/
 pthread_mutex_t	*init_forks(int count);
 pthread_t		*init_threads(int count);
 t_data			*init_data(char **argv);
+void			init_philo(t_philo *philo, t_data *data, int index);
+
+/*timer function*/
+long long		get_time_in_ms(void);
 
 /*libft functions*/
-int		ft_atoi(char *str);
-int		ft_isdigit(char c);
-int		ft_inset(char c, char *set);
+int				ft_atoi(char *str);
+int				ft_isdigit(char c);
+int				ft_inset(char c, char *set);
+
+/*philo's actions*/
+int				think_handle(t_philo *philo, t_data *data);
+int				forks_handle(t_philo *philo, t_data *data);
+int				eat_handle(t_philo *philo, t_data *data);
+int				sleep_handle(t_philo *philo, t_data *data);
 
 #endif

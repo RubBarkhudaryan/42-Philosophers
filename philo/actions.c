@@ -6,28 +6,35 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/06/05 21:13:14 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/06/09 20:02:08 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
 
-int	ft_think(t_philo *philo)
+int	think_handle(t_philo *philo, t_data *data)
 {
-	return (1);
+	pthread_mutex_lock(&data->print_mutex);
+	print_action(philo, 't', data->start_time);
+	pthread_mutex_unlock(&data->print_mutex);
+	return (0);
 }
 
-int	ft_forks(t_philo *philo)
-{
-	return (1);
-}
+// int	forks_handle(t_philo *philo, t_data *data)
+// {
+// 	return (0);
+// }
 
-int	ft_eat(t_philo *philo)
-{
-	return (1);
-}
+// int	eat_handle(t_philo *philo, t_data *data)
+// {
+// 	return (0);
+// }
 
-int	ft_sleep(t_philo *philo)
+int	sleep_handle(t_philo *philo, t_data *data)
 {
-	return (1);
+	pthread_mutex_lock(&data->print_mutex);
+	print_action(philo, 's', data->start_time);
+	pthread_mutex_unlock(&data->print_mutex);
+	ft_usleep(data->sleep);
+	return (0);
 }

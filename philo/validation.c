@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:16:58 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/06/05 21:17:34 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/06/09 19:36:26 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ static int	contains_symbols(char **argv)
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]) && !ft_inset(argv[i][j], " +-"))
-				return (1);
+				return (true);
 			++j;
 		}
 		++i;
 	}
-	return (0);
+	return (false);
 }
 
-int	is_valid(char **argv)
+bool	is_valid(char **argv)
 {
 	int	i;
 	int	arg;
@@ -40,18 +40,18 @@ int	is_valid(char **argv)
 
 	philo_count = ft_atoi(argv[1]);
 	if (philo_count < 1 || philo_count > 200)
-		return (ft_error(2, philo_count), 0);
+		return (ft_error(2, philo_count), false);
 	if (contains_symbols(argv))
-		return (ft_error(3, 0), 0);
+		return (ft_error(3, 0), false);
 	i = 2;
 	while (argv[i])
 	{
 		arg = ft_atoi(argv[i]);
 		if (arg < 1 || arg > INT_MAX)
-			return (ft_error(4, 0), 0);
+			return (ft_error(4, 0), false);
 		++i;
 	}
-	return (1);
+	return (true);
 }
 
 void	ft_error(int error_status, int opt_arg)
@@ -68,16 +68,19 @@ void	ft_error(int error_status, int opt_arg)
 		printf("Error: Philos initialization failed\n");
 }
 
-void	print_action(int philo, char action, long long timestamp)
+void	print_action(t_philo *philo, char action, long long timestamp)
 {
+	long long	curr_time;
+
+	curr_time = get_time_in_ms();
 	if (action == 'f')
-		printf("%lld %d has taken a fork\n", timestamp, philo);
+		printf("%lld %d has taken a fork\n", curr_time - timestamp, philo->id);
 	else if (action == 'e')
-		printf("%lld %d is eating\n", timestamp, philo);
+		printf("%lld %d is eating\n", curr_time - timestamp, philo->id);
 	else if (action == 's')
-		printf("%lld %d is sleeping\n", timestamp, philo);
+		printf("%lld %d is sleeping\n", curr_time - timestamp, philo->id);
 	else if (action == 't')
-		printf("%lld %d is thinking\n", timestamp, philo);
+		printf("%lld %d is thinking\n", curr_time - timestamp, philo->id);
 	else if (action == 'd')
-		printf("%lld %d died\n", timestamp, philo);
+		printf("%lld %d died\n", curr_time - timestamp, philo->id);
 }
