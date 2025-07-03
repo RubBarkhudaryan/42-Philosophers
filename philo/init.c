@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 18:55:47 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 17:12:51 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:01:06 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	cast_str_data(t_data **data, char **argv)
 
 void	init_philo(t_philo *philo, t_data *data, int index)
 {
-	philo->id = index + 1;
+	philo->id = index;
 	philo->eat_count = 0;
 	philo->last_meal = 0;
 	philo->data = data;

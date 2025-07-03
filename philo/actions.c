@@ -6,11 +6,37 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 17:22:12 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:58:51 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
+
+static void	pick_fork(t_philo *philo, t_data *data)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->r_fork);
+		pthread_mutex_lock(&data->print_mutex);
+		print_action(philo, 'f', data->start_time);
+		pthread_mutex_unlock(&data->print_mutex);
+		pthread_mutex_lock(philo->l_fork);
+		pthread_mutex_lock(&data->print_mutex);
+		print_action(philo, 'f', data->start_time);
+		pthread_mutex_unlock(&data->print_mutex);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->l_fork);
+		pthread_mutex_lock(&data->print_mutex);
+		print_action(philo, 'f', data->start_time);
+		pthread_mutex_unlock(&data->print_mutex);
+		pthread_mutex_lock(philo->r_fork);
+		pthread_mutex_lock(&data->print_mutex);
+		print_action(philo, 'f', data->start_time);
+		pthread_mutex_unlock(&data->print_mutex);
+	}
+}
 
 int	think_handle(t_philo *philo, t_data *data)
 {
@@ -22,38 +48,16 @@ int	think_handle(t_philo *philo, t_data *data)
 
 int	forks_handle(t_philo *philo, t_data *data)
 {
-	int	right;
 	int	left;
+	int	right;
 
-	right = (philo->id + 1) % data->count;
-	left = philo->id;
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_lock(&data->forks[right]);
-		pthread_mutex_lock(&data->forks[left]);
-	}
-	else
-	{
-		pthread_mutex_lock(&data->forks[left]);
-		pthread_mutex_lock(&data->forks[right]);
-	}
-	philo->r_fork = &data->forks[right];
+	left = philo->id - 1;
+	right = (philo->id) % data->count;
 	philo->l_fork = &data->forks[left];
-	pthread_mutex_lock(&data->print_mutex);
-	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
+	philo->r_fork = &data->forks[right];
+	pick_fork(philo, data);
 	return (0);
 }
-
-/*
-[even]
-picks right then left
-puts left then right
-
-[odd]
-picks left then right
-puts right then left
-*/
 
 int	eat_handle(t_philo *philo, t_data *data)
 {

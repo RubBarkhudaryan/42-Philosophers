@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 17:20:39 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 19:05:13 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
+	if (philo->id % 2 == 0)
+		ft_usleep(1);
 	while (true)
 	{
 		if (think_handle(philo, data))
@@ -43,7 +45,8 @@ int	main(int argc, char **argv)
 		data = init_data(argv);
 		i = -1;
 		while (++i < data->count)
-			pthread_create(&data->threads[i], NULL, &routine, (void *)&data->philos[i]);
+			pthread_create(&data->threads[i], NULL, &routine,
+				(void *)&data->philos[i]);
 		i = -1;
 		while (++i < data->count)
 			pthread_join(data->threads[i], NULL);
