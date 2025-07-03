@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/06/09 19:59:52 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:12:16 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ struct s_data
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	eat_mutex;
 };
 
 /*philo utils*/

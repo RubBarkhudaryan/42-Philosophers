@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/06/09 20:05:57 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:20:39 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ static void	*routine(void *arg)
 	{
 		if (think_handle(philo, data))
 			break ;
-		// if (forks_handle(philo, data))
-		// 	break ;
-		// if (eat_handle(philo, data))
-		// 	break ;
+		if (forks_handle(philo, data))
+			break ;
+		if (eat_handle(philo, data))
+			break ;
 		if (sleep_handle(philo, data))
 			break ;
 	}
