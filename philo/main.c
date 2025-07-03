@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 19:05:13 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:50:15 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	*routine(void *arg)
 		ft_usleep(1);
 	while (true)
 	{
+		if (check_death(data))
+			break ;
 		if (think_handle(philo, data))
 			break ;
 		if (forks_handle(philo, data))
@@ -47,9 +49,11 @@ int	main(int argc, char **argv)
 		while (++i < data->count)
 			pthread_create(&data->threads[i], NULL, &routine,
 				(void *)&data->philos[i]);
+		pthread_create(&data->monitoring, NULL, &monitoring_death, &data);
 		i = -1;
 		while (++i < data->count)
 			pthread_join(data->threads[i], NULL);
+		pthread_join(data->monitoring, NULL);
 		i = -1;
 		while (++i < data->count)
 			pthread_mutex_destroy(&data->forks[i]);

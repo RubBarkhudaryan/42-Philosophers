@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 17:12:16 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:49:07 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ struct s_philo
 	pthread_mutex_t	*l_fork;
 };
 
+/*shared data struct*/
 struct s_data
 {
 	int				count;
@@ -44,12 +45,15 @@ struct s_data
 	int				eat;
 	int				sleep;
 	int				must_eat;
+	int				dead;
 	long long		start_time;
-	pthread_t		*threads;
 	t_philo			*philos;
+	pthread_t		*threads;
+	pthread_t		monitoring;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	eat_mutex;
+	pthread_mutex_t	death_mutex;
 };
 
 /*philo utils*/
@@ -68,10 +72,15 @@ pthread_t		*init_threads(int count);
 t_data			*init_data(char **argv);
 void			init_philo(t_philo *philo, t_data *data, int index);
 
+/*monitoring*/
+void	*monitoring_death(void *arg);
+int		check_death(t_data *data);
+
+
 /*timer function*/
 long long		get_time_in_ms(void);
 
-/*libft functions*/
+/*helper functions*/
 int				ft_atoi(char *str);
 int				ft_isdigit(char c);
 int				ft_inset(char c, char *set);

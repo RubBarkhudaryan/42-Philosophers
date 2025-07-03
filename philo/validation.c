@@ -6,13 +6,13 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:16:58 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/06/09 19:36:26 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:18:53 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
 
-static int	contains_symbols(char **argv)
+static bool	contains_symbols(char **argv)
 {
 	int	i;
 	int	j;

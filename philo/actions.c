@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 18:58:51 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/03 21:42:59 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static void	pick_fork(t_philo *philo, t_data *data)
 
 int	think_handle(t_philo *philo, t_data *data)
 {
+	if (check_death(data))
+		return (1);
 	pthread_mutex_lock(&data->print_mutex);
 	print_action(philo, 't', data->start_time);
 	pthread_mutex_unlock(&data->print_mutex);
@@ -51,6 +53,8 @@ int	forks_handle(t_philo *philo, t_data *data)
 	int	left;
 	int	right;
 
+	if (check_death(data))
+		return (1);
 	left = philo->id - 1;
 	right = (philo->id) % data->count;
 	philo->l_fork = &data->forks[left];
@@ -61,6 +65,8 @@ int	forks_handle(t_philo *philo, t_data *data)
 
 int	eat_handle(t_philo *philo, t_data *data)
 {
+	if (check_death(data))
+		return (1);
 	pthread_mutex_lock(&data->print_mutex);
 	print_action(philo, 'e', data->start_time);
 	pthread_mutex_unlock(&data->print_mutex);
@@ -76,6 +82,8 @@ int	eat_handle(t_philo *philo, t_data *data)
 
 int	sleep_handle(t_philo *philo, t_data *data)
 {
+	if (check_death(data))
+		return (1);
 	pthread_mutex_lock(&data->print_mutex);
 	print_action(philo, 's', data->start_time);
 	pthread_mutex_unlock(&data->print_mutex);
