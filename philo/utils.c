@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/10 16:08:58 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:27:43 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	free_data(t_data **data)
 	while (i < (*data)->count)
 	{
 		pthread_mutex_destroy(&(*data)->philos[i].eat_mutex);
+		pthread_mutex_destroy(&(*data)->forks[i]);
 		++i;
 	}
 	free((*data)->philos);

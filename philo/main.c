@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/10 16:38:16 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:49:15 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,10 @@ int	main(int argc, char **argv)
 		while (++i < data->count)
 			pthread_join(data->threads[i], NULL);
 		pthread_join(data->monitoring, NULL);
-		i = -1;
-		while (++i < data->count)
-			pthread_mutex_destroy(&data->forks[i]);
 		free_data(&data);
 	}
 	else if (argc < 5)
 		ft_error(1, 0);
 	return (0);
 }
+

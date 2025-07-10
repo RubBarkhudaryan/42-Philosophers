@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 18:55:47 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/10 16:02:15 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:50:38 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_data	*init_data(char **argv)
 	data->forks = init_forks(data->count);
 	data->threads = init_threads(data->count);
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->count);
+	data->dead = 0;
 	pthread_mutex_init(&data->print_mutex, NULL);
 	pthread_mutex_init(&data->death_mutex, NULL);
 	i = -1;

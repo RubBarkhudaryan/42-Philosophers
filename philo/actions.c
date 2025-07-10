@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/10 16:30:29 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/10 17:46:31 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	pick_fork(t_philo *philo, t_data *data)
 {
+	if (check_death(data))
+		return ;
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->r_fork);
@@ -77,13 +79,11 @@ int	eat_handle(t_philo *philo, t_data *data)
 	pthread_mutex_unlock(&philo->eat_mutex);
 	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_unlock(philo->l_fork);
 		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
 	}
-	else
-	{
-		pthread_mutex_unlock(philo->r_fork);
-		pthread_mutex_unlock(philo->l_fork);
+	else{
+		
 	}
 	return (0);
 }
