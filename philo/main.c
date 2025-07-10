@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 21:50:15 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:38:16 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ static void	*routine(void *arg)
 	while (true)
 	{
 		if (check_death(data))
-			break ;
+			return (NULL);
 		if (think_handle(philo, data))
-			break ;
+			return (NULL);
 		if (forks_handle(philo, data))
-			break ;
+			return (NULL);
 		if (eat_handle(philo, data))
-			break ;
+			return (NULL);
 		if (sleep_handle(philo, data))
-			break ;
+			return (NULL);
 	}
 	return (NULL);
 }
@@ -47,9 +47,8 @@ int	main(int argc, char **argv)
 		data = init_data(argv);
 		i = -1;
 		while (++i < data->count)
-			pthread_create(&data->threads[i], NULL, &routine,
-				(void *)&data->philos[i]);
-		pthread_create(&data->monitoring, NULL, &monitoring_death, &data);
+			pthread_create(&data->threads[i], NULL, &routine, (void *)&data->philos[i]);
+		pthread_create(&data->monitoring, NULL, &monitoring_death, (void *) data);
 		i = -1;
 		while (++i < data->count)
 			pthread_join(data->threads[i], NULL);

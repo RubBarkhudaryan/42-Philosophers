@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 21:42:59 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:30:29 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,20 @@ int	eat_handle(t_philo *philo, t_data *data)
 	print_action(philo, 'e', data->start_time);
 	pthread_mutex_unlock(&data->print_mutex);
 	ft_usleep(data->eat);
-	pthread_mutex_lock(&data->eat_mutex);
+	pthread_mutex_lock(&philo->eat_mutex);
 	philo->eat_count++;
 	philo->last_meal = get_time_in_ms();
-	pthread_mutex_unlock(&data->eat_mutex);
-	pthread_mutex_unlock(philo->r_fork);
-	pthread_mutex_unlock(philo->l_fork);
+	pthread_mutex_unlock(&philo->eat_mutex);
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_unlock(philo->l_fork);
+		pthread_mutex_unlock(philo->r_fork);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->r_fork);
+		pthread_mutex_unlock(philo->l_fork);
+	}
 	return (0);
 }
 

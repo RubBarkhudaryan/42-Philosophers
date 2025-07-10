@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 18:55:47 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 21:16:50 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:02:15 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	cast_str_data(t_data **data, char **argv)
 {
 	(*data)->count = ft_atoi(argv[1]);
-	(*data)->die = ft_atoi(argv[2]);
-	(*data)->eat = ft_atoi(argv[3]);
-	(*data)->sleep = ft_atoi(argv[4]);
+	(*data)->die = ft_atoi(argv[2]) * 1000;
+	(*data)->eat = ft_atoi(argv[3]) * 1000;
+	(*data)->sleep = ft_atoi(argv[4]) * 1000;
 	if (argv[5])
 		(*data)->must_eat = ft_atoi(argv[5]);
 	else
@@ -32,6 +32,7 @@ void	init_philo(t_philo *philo, t_data *data, int index)
 	philo->data = data;
 	philo->l_fork = &data->forks[index];
 	philo->r_fork = &data->forks[(index + 1) % data->count];
+	pthread_mutex_init(&philo->eat_mutex, NULL);
 }
 
 pthread_mutex_t	*init_forks(int count)
@@ -87,7 +88,6 @@ t_data	*init_data(char **argv)
 	data->threads = init_threads(data->count);
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->count);
 	pthread_mutex_init(&data->print_mutex, NULL);
-	pthread_mutex_init(&data->eat_mutex, NULL);
 	pthread_mutex_init(&data->death_mutex, NULL);
 	i = -1;
 	while (++i < data->count)

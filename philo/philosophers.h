@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 21:49:07 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:45:59 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ struct s_philo
 	t_data			*data;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
+	pthread_mutex_t	eat_mutex;
 };
 
 /*shared data struct*/
@@ -52,7 +53,6 @@ struct s_data
 	pthread_t		monitoring;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	eat_mutex;
 	pthread_mutex_t	death_mutex;
 };
 
