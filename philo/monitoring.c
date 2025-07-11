@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:11:31 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/11 20:22:16 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:13:54 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,8 @@ void	*monitoring_death(void *arg)
 		{
 			pthread_mutex_lock(&data->philos[i].eat_mutex);
 			time_since_last_meal = (get_time_in_ms() - data->philos[i].last_meal);
-			pthread_mutex_lock(&data->print_mutex);
-			// printf("data->die = %d\nget_time_in_ms()=%lld\ndata->philos[i].last_meal=%lld\ni = %d\n", data->die, get_time_in_ms(), data->philos[i].last_meal, i);
-			pthread_mutex_unlock(&data->print_mutex);
 			pthread_mutex_unlock(&data->philos[i].eat_mutex);
-			if (time_since_last_meal > data->die - 10)
+			if (time_since_last_meal >= data->die && !data->philos[i].is_eating)
 			{
 				pthread_mutex_lock(&data->death_mutex);
 				data->dead = 1;
@@ -53,3 +50,8 @@ void	*monitoring_death(void *arg)
 	}
 	return (NULL);
 }
+
+			// pthread_mutex_lock(&data->print_mutex);
+			// printf("get_time_in_ms() - data->philos[i].last_meal=%lld\ni = %d\n", get_time_in_ms() - data->philos[i].last_meal, i);
+			// pthread_mutex_unlock(&data->print_mutex);
+			

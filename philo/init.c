@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 18:55:47 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/11 20:13:22 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/11 22:11:49 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_philo(t_philo *philo, t_data *data, int index)
 {
 	philo->id = index;
 	philo->eat_count = 0;
+	philo->is_eating = 0;
 	philo->last_meal = get_time_in_ms();
 	philo->data = data;
 	philo->l_fork = &data->forks[index];
