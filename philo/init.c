@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 18:55:47 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/10 18:16:07 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/11 20:13:22 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	cast_str_data(t_data **data, char **argv)
 {
 	(*data)->count = ft_atoi(argv[1]);
 	(*data)->die = ft_atoi(argv[2]);
-	(*data)->eat = ft_atoi(argv[3]) ;
-	(*data)->sleep = ft_atoi(argv[4]) ;
+	(*data)->eat = ft_atoi(argv[3]);
+	(*data)->sleep = ft_atoi(argv[4]);
 	if (argv[5])
 		(*data)->must_eat = ft_atoi(argv[5]);
 	else
@@ -28,7 +28,7 @@ void	init_philo(t_philo *philo, t_data *data, int index)
 {
 	philo->id = index;
 	philo->eat_count = 0;
-	philo->last_meal = 0;
+	philo->last_meal = get_time_in_ms();
 	philo->data = data;
 	philo->l_fork = &data->forks[index];
 	philo->r_fork = &data->forks[(index + 1) % data->count];

@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/11 16:51:16 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/11 20:25:23 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	data = philo->data;
+	if (data->count == 1)
+		ft_usleep(data->die);
 	if (philo->id % 2 == 0)
 		ft_usleep(1);
 	while (!check_death(data))

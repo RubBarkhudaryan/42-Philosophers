@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/10 15:45:59 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/11 20:10:18 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ struct s_philo
 {
 	int				id;
 	int				eat_count;
-	long			last_meal;
+	long long		last_meal;
 	t_data			*data;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
