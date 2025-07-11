@@ -1,9 +1,9 @@
 NAME	=	philo
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -pthread
+CFLAGS	=	-g3 -Wall -Wextra -Werror
 
-SRCS	=	main.c utils.c libft_funcs.c validation.c actions.c
+SRCS	=	main.c init.c utils.c functions.c validation.c actions.c monitoring.c
 
 OBJS	=	$(SRCS:%.c=%.o)
 
