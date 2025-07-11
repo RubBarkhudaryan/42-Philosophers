@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:11:31 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/10 17:24:10 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/11 18:00:38 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,27 +24,27 @@ int	check_death(t_data *data)
 
 void	*monitoring_death(void *arg)
 {
-	t_data	*data;
 	int		i;
+	t_data	*data;
+	long	time_since_last_meal;
 
 	data = (t_data *)arg;
-	while (true)
+	while (!check_death(data))
 	{
 		i = -1;
 		while (++i < data->count)
 		{
 			pthread_mutex_lock(&data->philos[i].eat_mutex);
-			if (((get_time_in_ms() / 1000 )- (data->philos[i].last_meal / 1000)) > data->die/1000)
+			time_since_last_meal = get_time_in_ms() - data->philos[i].last_meal;
+			pthread_mutex_unlock(&data->philos[i].eat_mutex);
+			if (time_since_last_meal > data->die)
 			{
-				pthread_mutex_unlock(&data->philos[i].eat_mutex);
 				pthread_mutex_lock(&data->death_mutex);
 				data->dead = 1;
 				pthread_mutex_unlock(&data->death_mutex);
-				pthread_mutex_lock(&data->print_mutex);
 				print_action(&data->philos[i], 'd', data->start_time);
-				return (pthread_mutex_unlock(&data->print_mutex), NULL);
+				return (NULL);
 			}
-			pthread_mutex_unlock(&data->philos[i].eat_mutex);
 		}
 		usleep(1000);
 	}

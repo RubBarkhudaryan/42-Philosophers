@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:16:58 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/03 21:18:53 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/11 17:56:39 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,11 @@ void	ft_error(int error_status, int opt_arg)
 void	print_action(t_philo *philo, char action, long long timestamp)
 {
 	long long	curr_time;
+	t_data		*data;
 
+	data = philo->data;
 	curr_time = get_time_in_ms();
+	pthread_mutex_lock(&data->print_mutex);
 	if (action == 'f')
 		printf("%lld %d has taken a fork\n", curr_time - timestamp, philo->id);
 	else if (action == 'e')
@@ -83,4 +86,5 @@ void	print_action(t_philo *philo, char action, long long timestamp)
 		printf("%lld %d is thinking\n", curr_time - timestamp, philo->id);
 	else if (action == 'd')
 		printf("%lld %d died\n", curr_time - timestamp, philo->id);
+	pthread_mutex_unlock(&data->print_mutex);
 }
