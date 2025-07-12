@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:11:31 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/12 20:11:45 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:16:46 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,3 +51,8 @@ void	*monitoring_death(void *arg)
 	}
 	return (NULL);
 }
+
+			// pthread_mutex_lock(&data->print_mutex);
+			// printf("get_time_in_ms() - data->philos[i].last_meal=%lld\ni = %d\n", get_time_in_ms() - data->philos[i].last_meal, i);
+			// pthread_mutex_unlock(&data->print_mutex);
+			

@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/12 20:12:03 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:16:52 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_usleep(long long ms)
 	start = get_time_in_ms();
 	while (get_time_in_ms() - start < ms)
 		usleep(50);
+<<<<<<< HEAD
 }
 
 void	print_action(t_philo *philo, char action, long long timestamp)
@@ -62,4 +63,6 @@ void	print_action(t_philo *philo, char action, long long timestamp)
 		printf("%lld %d is thinking\n", curr_time - timestamp, philo->id);
 	else if (action == 'd')
 		printf("%lld %d died\n", curr_time - timestamp, philo->id);
+=======
+>>>>>>> refs/remotes/origin/main
 }

@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/12 20:11:16 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/12 22:16:30 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ int	eat_handle(t_philo *philo, t_data *data)
 	print_action(philo, 'e', data->start_time);
 	pthread_mutex_unlock(&data->print_mutex);
 	pthread_mutex_lock(&philo->eat_mutex);
+	philo->is_eating = 1;
+	ft_usleep(data->eat);
 	philo->eat_count++;
 	philo->last_meal = get_time_in_ms();
 	pthread_mutex_unlock(&philo->eat_mutex);
