@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/11 20:10:18 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/12 20:06:37 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,9 @@ int				think_handle(t_philo *philo, t_data *data);
 int				forks_handle(t_philo *philo, t_data *data);
 int				eat_handle(t_philo *philo, t_data *data);
 int				sleep_handle(t_philo *philo, t_data *data);
+
+/*philo actions utils*/
+void			drop_forks(t_philo *philo);
+int				try_pick_forks(t_philo *philo, t_data *data);
 
 #endif

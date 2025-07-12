@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/10 18:15:38 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/12 20:12:03 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 
 long long	get_time_in_ms(void)
 {
-	long long		ms;
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	ms = time.tv_sec * 1000 + time.tv_usec / 1000;
-	return (ms);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 void	free_data(t_data **data)
@@ -46,5 +44,22 @@ void	ft_usleep(long long ms)
 
 	start = get_time_in_ms();
 	while (get_time_in_ms() - start < ms)
-		usleep(100);
+		usleep(50);
+}
+
+void	print_action(t_philo *philo, char action, long long timestamp)
+{
+	long long	curr_time;
+
+	curr_time = get_time_in_ms();
+	if (action == 'f')
+		printf("%lld %d has taken a fork\n", curr_time - timestamp, philo->id);
+	else if (action == 'e')
+		printf("%lld %d is eating\n", curr_time - timestamp, philo->id);
+	else if (action == 's')
+		printf("%lld %d is sleeping\n", curr_time - timestamp, philo->id);
+	else if (action == 't')
+		printf("%lld %d is thinking\n", curr_time - timestamp, philo->id);
+	else if (action == 'd')
+		printf("%lld %d died\n", curr_time - timestamp, philo->id);
 }
