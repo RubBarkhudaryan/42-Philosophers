@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/12 20:12:03 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/13 22:10:08 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,12 @@ void	free_data(t_data **data)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	pthread_mutex_destroy(&(*data)->death_mutex);
 	pthread_mutex_destroy(&(*data)->print_mutex);
-	while (i < (*data)->count)
-	{
+	pthread_mutex_destroy(&(*data)->meal_mutex);
+	while (++i < (*data)->count)
 		pthread_mutex_destroy(&(*data)->philos[i].eat_mutex);
-		++i;
-	}
 	free((*data)->philos);
 	free((*data)->forks);
 	free((*data)->threads);
@@ -44,7 +42,7 @@ void	ft_usleep(long long ms)
 
 	start = get_time_in_ms();
 	while (get_time_in_ms() - start < ms)
-		usleep(50);
+		usleep(100);
 }
 
 void	print_action(t_philo *philo, char action, long long timestamp)

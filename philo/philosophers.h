@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/13 01:11:52 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/13 21:37:37 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,16 @@ struct s_data
 	int				sleep;
 	int				must_eat;
 	int				dead;
+	int				full;
 	long long		start_time;
 	t_philo			*philos;
 	pthread_t		*threads;
 	pthread_t		monitoring;
+	pthread_t		eat_thread;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	death_mutex;
+	pthread_mutex_t	meal_mutex;
 };
 
 /*philo utils*/
@@ -74,7 +77,9 @@ void			init_philo(t_philo *philo, t_data *data, int index);
 
 /*monitoring*/
 void			*monitoring_death(void *arg);
+void			*eat_monitoring(void *arg);
 int				check_death(t_data *data);
+int				check_fullness(t_data *data);
 
 /*timer function*/
 long long		get_time_in_ms(void);
@@ -92,6 +97,7 @@ int				sleep_handle(t_philo *philo, t_data *data);
 
 /*philo actions utils*/
 void			drop_forks(t_philo *philo);
-int				try_pick_forks(t_philo *philo, t_data *data);
+int				try_pick_forks_evens(t_philo *philo, t_data *data);
+int				try_pick_forks_odds(t_philo *philo, t_data *data);
 
 #endif
