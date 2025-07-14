@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/13 22:08:41 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/15 00:35:36 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int	forks_handle(t_philo *philo, t_data *data)
 	philo->r_fork = &data->forks[right];
 	if (philo->id % 2 == 0)
 	{
-		if (check_death(data) || try_pick_forks_evens(philo, data) || \
-		check_fullness(data))
+		if (check_death(data) || check_fullness(data) || \
+			try_pick_forks_evens(philo, data))
 			return (1);
 	}
 	else
 	{
-		if (check_death(data) || try_pick_forks_odds(philo, data) || \
-		check_fullness(data))
+		if (check_death(data) || check_fullness(data) || \
+			try_pick_forks_odds(philo, data))
 			return (1);
 	}
 	return (0);

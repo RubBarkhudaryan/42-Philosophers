@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/13 22:10:08 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/15 00:41:33 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ void	print_action(t_philo *philo, char action, long long timestamp)
 		printf("%lld %d is thinking\n", curr_time - timestamp, philo->id);
 	else if (action == 'd')
 		printf("%lld %d died\n", curr_time - timestamp, philo->id);
+	else if (action == 'q')
+		printf("%lld Dinner is over.\n", curr_time - timestamp);
 }

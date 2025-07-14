@@ -6,11 +6,28 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:11:31 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/13 22:05:54 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/07/15 01:00:00 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers.h"
+
+static int	all_philos_ate(t_data *data)
+{
+	int	i;
+	int	fullness;
+
+	i = -1;
+	fullness = 0;
+	while (++i < data->count && !check_death(data))
+	{
+		pthread_mutex_lock(&data->philos[i].eat_mutex);
+		if (data->must_eat > 0 && data->philos[i].eat_count > data->must_eat)
+			++fullness;
+		pthread_mutex_unlock(&data->philos[i].eat_mutex);
+	}
+	return (fullness == data->count);
+}
 
 int	check_death(t_data *data)
 {
@@ -63,31 +80,20 @@ void	*monitoring_death(void *arg)
 
 void	*eat_monitoring(void *arg)
 {
-	int		i;
-	int		fullness;
 	t_data	*data;
 
 	data = (t_data *)arg;
-	if (check_death(data))
-		return (NULL);
 	while (!check_death(data) && !check_fullness(data))
 	{
-		i = -1;
-		fullness = 0;
-		while (++i < data->count && !check_death(data))
+		if (all_philos_ate(data))
 		{
-			pthread_mutex_lock(&data->philos[i].eat_mutex);
-			if (data->must_eat > 0 && data->philos[i].eat_count >= data->must_eat)
-				++fullness;
-			if (fullness == data->count)
-			{
-				data->full = 1;
-				pthread_mutex_unlock(&data->philos[i].eat_mutex);
-				pthread_mutex_lock(&data->print_mutex);
-				printf("%lld Dinner is over.\n", get_time_in_ms() - data->start_time);
-				return (pthread_mutex_unlock(&data->print_mutex), NULL);
-			}
-			pthread_mutex_unlock(&data->philos[i].eat_mutex);
+			pthread_mutex_lock(&data->meal_mutex);
+			data->full = 1;
+			pthread_mutex_unlock(&data->meal_mutex);
+			pthread_mutex_lock(&data->print_mutex);
+			print_action(NULL, 'q', data->start_time);
+			pthread_mutex_unlock(&data->print_mutex);
+			return (NULL);
 		}
 		usleep(100);
 	}
