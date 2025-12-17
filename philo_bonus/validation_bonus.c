@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   validation_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:16:58 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/12 20:08:31 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/17 20:14:58 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include "./philosophers_bonus.h"
 
 static bool	contains_symbols(char **argv)
 {
@@ -57,13 +57,13 @@ bool	is_valid(char **argv)
 void	ft_error(int error_status, int opt_arg)
 {
 	if (error_status == 1)
-		printf("Error: Invalid arguments count\n");
+		printf("Error: Invalid arguments count.\n");
 	else if (error_status == 2)
 		printf("Error: Philos count out of range (1 - 200): %d\n", opt_arg);
 	else if (error_status == 3)
-		printf("Error: Invalid character found\n");
+		printf("Error: Invalid character found.\n");
 	else if (error_status == 4)
-		printf("Error: Argument out of range (1 - %d)\n", INT_MAX);
+		printf("Error: Argument out of range (1 - %d).\n", INT_MAX);
 	else if (error_status == 5)
-		printf("Error: Philos initialization failed\n");
+		printf("Error: Philos initialization failed.\n");
 }

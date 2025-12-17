@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/13 21:37:37 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/16 18:06:11 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@ t_data			*init_data(char **argv);
 void			init_philo(t_philo *philo, t_data *data, int index);
 
 /*monitoring*/
-void			*monitoring_death(void *arg);
+void			*monitoring_death(void *data);
 void			*eat_monitoring(void *arg);
 int				check_death(t_data *data);
 int				check_fullness(t_data *data);
 
 /*timer function*/
 long long		get_time_in_ms(void);
+long			get_last_meal(t_philo *philo);
 
 /*helper functions*/
 int				ft_atoi(char *str);

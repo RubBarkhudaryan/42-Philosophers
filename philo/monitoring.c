@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:11:31 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/15 01:00:00 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/11/24 20:45:49 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	all_philos_ate(t_data *data)
 	while (++i < data->count && !check_death(data))
 	{
 		pthread_mutex_lock(&data->philos[i].eat_mutex);
-		if (data->must_eat > 0 && data->philos[i].eat_count > data->must_eat)
+		if (data->must_eat > 0 && data->philos[i].eat_count >= data->must_eat)
 			++fullness;
 		pthread_mutex_unlock(&data->philos[i].eat_mutex);
 	}
@@ -60,18 +60,16 @@ void	*monitoring_death(void *arg)
 		i = -1;
 		while (++i < data->count)
 		{
-			pthread_mutex_lock(&data->philos[i].eat_mutex);
-			if (get_time_in_ms() - data->philos[i].last_meal >= data->die)
+			if (get_last_meal(&data->philos[i]) >= data->die)
 			{
-				pthread_mutex_unlock(&data->philos[i].eat_mutex);
 				pthread_mutex_lock(&data->death_mutex);
 				data->dead = 1;
 				pthread_mutex_unlock(&data->death_mutex);
 				pthread_mutex_lock(&data->print_mutex);
 				print_action(&data->philos[i], 'd', data->start_time);
-				return (pthread_mutex_unlock(&data->print_mutex), NULL);
+				pthread_mutex_unlock(&data->print_mutex);
+				return (NULL);
 			}
-			pthread_mutex_unlock(&data->philos[i].eat_mutex);
 		}
 		usleep(100);
 	}

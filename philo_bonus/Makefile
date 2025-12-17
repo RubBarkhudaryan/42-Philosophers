@@ -1,9 +1,12 @@
-NAME	=	philo
+NAME	=	philo_bonus
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g3
+CFLAGS	=	-Wall -Wextra -Werror -g3 -pthread
 
-SRCS	=	main.c init.c utils.c init_utils.c validation.c actions.c action_utils.c monitoring.c
+SRCS	=	main_bonus.c \
+			init_bonus.c init_utils_bonus.c\
+			actions_bonus.c action_utils_bonus.c\
+			utils_bonus.c validation_bonus.c monitoring_bonus.c
 
 OBJS	=	$(SRCS:%.c=%.o)
 

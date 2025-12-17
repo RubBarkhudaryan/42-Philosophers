@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "./philosophers_bonus.h"
 
-int	try_pick_forks_evens(t_philo *philo, t_data *data)
+int try_pick_forks_evens(t_philo *philo, t_data *data)
 {
 	if (check_death(data) || check_fullness(data))
 		return (1);
@@ -35,7 +35,7 @@ int	try_pick_forks_evens(t_philo *philo, t_data *data)
 	return (0);
 }
 
-int	try_pick_forks_odds(t_philo *philo, t_data *data)
+int try_pick_forks_odds(t_philo *philo, t_data *data)
 {
 	if (check_death(data) || check_fullness(data))
 		return (1);
@@ -58,14 +58,24 @@ int	try_pick_forks_odds(t_philo *philo, t_data *data)
 	return (0);
 }
 
-void	drop_forks(t_philo *philo)
+void drop_forks(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_unlock(philo->l_fork);
 		pthread_mutex_unlock(philo->r_fork);
-		return ;
+		return;
 	}
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
+}
+
+long get_last_meal(t_philo *philo)
+{
+	long time_since_meal;
+
+	pthread_mutex_lock(&philo->eat_mutex);
+	time_since_meal = get_time_in_ms() - philo->last_meal;
+	pthread_mutex_unlock(&philo->eat_mutex);
+	return (time_since_meal);
 }

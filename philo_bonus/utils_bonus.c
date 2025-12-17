@@ -6,23 +6,23 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/15 00:41:33 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/17 17:20:14 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include "./philosophers_bonus.h"
 
-long long	get_time_in_ms(void)
+long long get_time_in_ms(void)
 {
-	struct timeval	time;
+	struct timeval time;
 
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-void	free_data(t_data **data)
+void free_data(t_data **data)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	pthread_mutex_destroy(&(*data)->death_mutex);
@@ -36,18 +36,18 @@ void	free_data(t_data **data)
 	free((*data));
 }
 
-void	ft_usleep(long long ms)
+void ft_usleep(long long ms)
 {
-	long long	start;
+	long long start;
 
 	start = get_time_in_ms();
 	while (get_time_in_ms() - start < ms)
 		usleep(100);
 }
 
-void	print_action(t_philo *philo, char action, long long timestamp)
+void print_action(t_philo *philo, char action, long long timestamp)
 {
-	long long	curr_time;
+	long long curr_time;
 
 	curr_time = get_time_in_ms();
 	if (action == 'f')

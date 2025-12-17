@@ -6,13 +6,13 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/15 00:35:36 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/17 17:20:14 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philosophers.h"
+#include "./philosophers_bonus.h"
 
-int	think_handle(t_philo *philo, t_data *data)
+int think_handle(t_philo *philo, t_data *data)
 {
 	if (check_death(data) || check_fullness(data))
 		return (1);
@@ -23,10 +23,10 @@ int	think_handle(t_philo *philo, t_data *data)
 	return (0);
 }
 
-int	forks_handle(t_philo *philo, t_data *data)
+int forks_handle(t_philo *philo, t_data *data)
 {
-	size_t	left;
-	size_t	right;
+	size_t left;
+	size_t right;
 
 	left = philo->id - 1;
 	right = philo->id % data->count;
@@ -34,20 +34,18 @@ int	forks_handle(t_philo *philo, t_data *data)
 	philo->r_fork = &data->forks[right];
 	if (philo->id % 2 == 0)
 	{
-		if (check_death(data) || check_fullness(data) || \
-			try_pick_forks_evens(philo, data))
+		if (check_death(data) || check_fullness(data) || try_pick_forks_evens(philo, data))
 			return (1);
 	}
 	else
 	{
-		if (check_death(data) || check_fullness(data) || \
-			try_pick_forks_odds(philo, data))
+		if (check_death(data) || check_fullness(data) || try_pick_forks_odds(philo, data))
 			return (1);
 	}
 	return (0);
 }
 
-int	eat_handle(t_philo *philo, t_data *data)
+int eat_handle(t_philo *philo, t_data *data)
 {
 	if (check_death(data) || check_fullness(data))
 		return (1);
@@ -63,7 +61,7 @@ int	eat_handle(t_philo *philo, t_data *data)
 	return (0);
 }
 
-int	sleep_handle(t_philo *philo, t_data *data)
+int sleep_handle(t_philo *philo, t_data *data)
 {
 	if (check_death(data) || check_fullness(data))
 		return (1);

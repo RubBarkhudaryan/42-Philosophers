@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/07/16 02:15:04 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/16 19:22:15 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,12 @@ static void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	data = philo->data;
 	if (data->count == 1)
+	{
 		ft_usleep(data->die);
+		return (NULL);
+	}
 	if (philo->id % 2 == 0)
-		ft_usleep(1);
+		ft_usleep(data->eat / 2);
 	while (!check_death(data) && !check_fullness(data))
 	{
 		if (forks_handle(philo, data))
@@ -50,7 +53,7 @@ int	main(int argc, char **argv)
 			pthread_create(&data->threads[i], NULL,
 				&routine, &data->philos[i]);
 		pthread_create(&data->monitoring, NULL, &monitoring_death, data);
-		pthread_create(&data->eat_thread, NULL, &eat_monitoring, (void *)data);
+		pthread_create(&data->eat_thread, NULL, &eat_monitoring, data);
 		i = -1;
 		while (++i < data->count)
 			pthread_join(data->threads[i], NULL);

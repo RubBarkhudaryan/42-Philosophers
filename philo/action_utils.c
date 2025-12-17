@@ -69,3 +69,13 @@ void	drop_forks(t_philo *philo)
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);
 }
+
+long	get_last_meal(t_philo *philo)
+{
+	long	time_since_meal;
+
+	pthread_mutex_lock(&philo->eat_mutex);
+	time_since_meal = get_time_in_ms() - philo->last_meal;
+	pthread_mutex_unlock(&philo->eat_mutex);
+	return (time_since_meal);
+}
