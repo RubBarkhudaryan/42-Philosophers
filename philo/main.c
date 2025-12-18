@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/16 19:22:15 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/18 18:22:09 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static void	*routine(void *arg)
 
 int	main(int argc, char **argv)
 {
-	t_data		*data;
-	int			i;
+	int		i;
+	t_data	*data;
 
 	if ((argc == 5 || argc == 6) && is_valid(argv))
 	{
