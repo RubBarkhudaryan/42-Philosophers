@@ -1,7 +1,7 @@
 NAME	=	philo_bonus
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror -g3 -pthread
+CFLAGS	=	-Wall -Wextra -Werror -g3
 
 SRCS	=	main_bonus.c \
 			init_bonus.c init_utils_bonus.c\

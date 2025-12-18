@@ -6,13 +6,13 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:15:44 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/18 22:25:58 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers_bonus.h"
 
-static void	cleanup_parent(t_data *data, t_sems *sems, pid_t *pids)
+void	cleanup_parent(t_data *data, t_sems *sems, pid_t *pids)
 {
 	if (data)
 		free(data);
@@ -26,7 +26,7 @@ static void	cleanup_parent(t_data *data, t_sems *sems, pid_t *pids)
 	}
 }
 
-static int	wait_all_or_death(t_data *data, pid_t *pids)
+int	wait_all_or_death(t_data *data, pid_t *pids)
 {
 	int		i;
 	int		status;
@@ -48,7 +48,7 @@ static int	wait_all_or_death(t_data *data, pid_t *pids)
 	return (EXIT_SATIATED);
 }
 
-static void	routine(t_data *data, t_sems *sems, int index)
+void	routine(t_data *data, t_sems *sems, int index)
 {
 	t_philo	*philo;
 
@@ -59,13 +59,13 @@ static void	routine(t_data *data, t_sems *sems, int index)
 		ft_usleep(philo, 1);
 	while (true)
 	{
-		if (fork_handle(philo, data))
+		if (forks_handle(philo))
 			return ;
 		if (eat_handle(philo, data))
 			return ;
 		if (sleep_handle(philo, data))
 			return ;
-		if (think_handle(philo, data))
+		if (think_handle(philo))
 			return ;
 		if (philo->data->must_eat != -1 && philo->eat_count >= data->must_eat)
 			exit(EXIT_SATIATED);
@@ -74,7 +74,7 @@ static void	routine(t_data *data, t_sems *sems, int index)
 	exit(EXIT_SATIATED);
 }
 
-static void	kill_all(pid_t *pids, int ind)
+void	kill_all(pid_t *pids, int ind)
 {
 	int	i;
 

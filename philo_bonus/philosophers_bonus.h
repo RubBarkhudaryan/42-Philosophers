@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:17:43 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/18 22:27:09 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <sys/types.h>
 # include <signal.h>
 # include <sys/wait.h>
-# include <pthread.h>
 
 # include <semaphore.h>
 # include <fcntl.h>
@@ -83,6 +82,11 @@ t_data		*init_data(char **argv);
 t_sems		*init_semaphores(int count);
 t_philo		*init_philo(t_data *data, int index, t_sems *sems);
 
+/*checkers*/
+int			check_death(t_philo *philo);
+int			check_fullness(t_philo *philo);
+
+
 /*timer function*/
 long long	get_time_in_ms(void);
 long		get_last_meal(t_philo *philo);
@@ -93,9 +97,15 @@ int			ft_isdigit(char c);
 int			ft_inset(char c, char *set);
 
 /*philo's actions*/
-int			think_handle(t_philo *philo, t_data *data);
-int			forks_handle(t_philo *philo, t_data *data);
+int			think_handle(t_philo *philo);
+int			forks_handle(t_philo *philo);
 int			eat_handle(t_philo *philo, t_data *data);
 int			sleep_handle(t_philo *philo, t_data *data);
+
+/*main utils*/
+void		cleanup_parent(t_data *data, t_sems *sems, pid_t *pids);
+int			wait_all_or_death(t_data *data, pid_t *pids);
+void		routine(t_data *data, t_sems *sems, int index);
+void		kill_all(pid_t *pids, int ind);
 
 #endif

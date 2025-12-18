@@ -6,13 +6,13 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:16:43 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/18 22:25:12 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers_bonus.h"
 
-int	think_handle(t_philo *philo, t_data *data)
+int	think_handle(t_philo *philo)
 {
 	if (check_death(philo) || check_fullness(philo))
 		return (1);
@@ -23,7 +23,7 @@ int	think_handle(t_philo *philo, t_data *data)
 	return (0);
 }
 
-int	forks_handle(t_philo *philo, t_data *data)
+int	forks_handle(t_philo *philo)
 {
 	if (check_death(philo) || check_fullness(philo))
 		return (1);
