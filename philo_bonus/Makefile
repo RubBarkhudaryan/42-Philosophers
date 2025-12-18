@@ -6,6 +6,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g3 -pthread
 SRCS	=	main_bonus.c \
 			init_bonus.c init_utils_bonus.c\
 			actions_bonus.c action_utils_bonus.c\
+			semaphores_bonus.c \
 			utils_bonus.c validation_bonus.c monitoring_bonus.c
 
 OBJS	=	$(SRCS:%.c=%.o)

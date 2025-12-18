@@ -12,70 +12,70 @@
 
 #include "./philosophers_bonus.h"
 
-int try_pick_forks_evens(t_philo *philo, t_data *data)
-{
-	if (check_death(data) || check_fullness(data))
-		return (1);
-	pthread_mutex_lock(philo->r_fork);
-	if (check_death(data) || check_fullness(data))
-		return (pthread_mutex_unlock(philo->r_fork), 1);
-	pthread_mutex_lock(&data->print_mutex);
-	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
-	pthread_mutex_lock(philo->l_fork);
-	if (check_death(data) || check_fullness(data))
-	{
-		pthread_mutex_unlock(philo->l_fork);
-		pthread_mutex_unlock(philo->r_fork);
-		return (1);
-	}
-	pthread_mutex_lock(&data->print_mutex);
-	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
-	return (0);
-}
+// int try_pick_forks_evens(t_philo *philo, t_data *data)
+// {
+// 	if (check_death(data) || check_fullness(data))
+// 		return (1);
+// 	pthread_mutex_lock(philo->r_fork);
+// 	if (check_death(data) || check_fullness(data))
+// 		return (pthread_mutex_unlock(philo->r_fork), 1);
+// 	pthread_mutex_lock(&data->print_mutex);
+// 	print_action(philo, 'f', data->start_time);
+// 	pthread_mutex_unlock(&data->print_mutex);
+// 	pthread_mutex_lock(philo->l_fork);
+// 	if (check_death(data) || check_fullness(data))
+// 	{
+// 		pthread_mutex_unlock(philo->l_fork);
+// 		pthread_mutex_unlock(philo->r_fork);
+// 		return (1);
+// 	}
+// 	pthread_mutex_lock(&data->print_mutex);
+// 	print_action(philo, 'f', data->start_time);
+// 	pthread_mutex_unlock(&data->print_mutex);
+// 	return (0);
+// }
 
-int try_pick_forks_odds(t_philo *philo, t_data *data)
-{
-	if (check_death(data) || check_fullness(data))
-		return (1);
-	pthread_mutex_lock(philo->l_fork);
-	if (check_death(data) || check_fullness(data))
-		return (pthread_mutex_unlock(philo->l_fork), 1);
-	pthread_mutex_lock(&data->print_mutex);
-	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
-	pthread_mutex_lock(philo->r_fork);
-	if (check_death(data) || check_fullness(data))
-	{
-		pthread_mutex_unlock(philo->r_fork);
-		pthread_mutex_unlock(philo->l_fork);
-		return (1);
-	}
-	pthread_mutex_lock(&data->print_mutex);
-	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
-	return (0);
-}
+// int try_pick_forks_odds(t_philo *philo, t_data *data)
+// {
+// 	if (check_death(data) || check_fullness(data))
+// 		return (1);
+// 	pthread_mutex_lock(philo->l_fork);
+// 	if (check_death(data) || check_fullness(data))
+// 		return (pthread_mutex_unlock(philo->l_fork), 1);
+// 	pthread_mutex_lock(&data->print_mutex);
+// 	print_action(philo, 'f', data->start_time);
+// 	pthread_mutex_unlock(&data->print_mutex);
+// 	pthread_mutex_lock(philo->r_fork);
+// 	if (check_death(data) || check_fullness(data))
+// 	{
+// 		pthread_mutex_unlock(philo->r_fork);
+// 		pthread_mutex_unlock(philo->l_fork);
+// 		return (1);
+// 	}
+// 	pthread_mutex_lock(&data->print_mutex);
+// 	print_action(philo, 'f', data->start_time);
+// 	pthread_mutex_unlock(&data->print_mutex);
+// 	return (0);
+// }
 
-void drop_forks(t_philo *philo)
-{
-	if (philo->id % 2 == 0)
-	{
-		pthread_mutex_unlock(philo->l_fork);
-		pthread_mutex_unlock(philo->r_fork);
-		return;
-	}
-	pthread_mutex_unlock(philo->r_fork);
-	pthread_mutex_unlock(philo->l_fork);
-}
+// void drop_forks(t_philo *philo)
+// {
+// 	if (philo->id % 2 == 0)
+// 	{
+// 		pthread_mutex_unlock(philo->l_fork);
+// 		pthread_mutex_unlock(philo->r_fork);
+// 		return;
+// 	}
+// 	pthread_mutex_unlock(philo->r_fork);
+// 	pthread_mutex_unlock(philo->l_fork);
+// }
 
-long get_last_meal(t_philo *philo)
-{
-	long time_since_meal;
+// long get_last_meal(t_philo *philo)
+// {
+// 	long time_since_meal;
 
-	pthread_mutex_lock(&philo->eat_mutex);
-	time_since_meal = get_time_in_ms() - philo->last_meal;
-	pthread_mutex_unlock(&philo->eat_mutex);
-	return (time_since_meal);
-}
+// 	pthread_mutex_lock(&philo->eat_mutex);
+// 	time_since_meal = get_time_in_ms() - philo->last_meal;
+// 	pthread_mutex_unlock(&philo->eat_mutex);
+// 	return (time_since_meal);
+// }

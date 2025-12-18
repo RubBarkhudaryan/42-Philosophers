@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_utils.c                                       :+:      :+:    :+:   */
+/*   init_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 20:55:23 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/17 17:20:14 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/18 22:17:09 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers_bonus.h"
 
-int ft_atoi(char *str)
+int	ft_atoi(char *str)
 {
-	int i;
-	int res;
-	int sign;
+	int	i;
+	int	res;
+	int	sign;
 
 	i = 0;
 	res = 0;
@@ -38,14 +38,14 @@ int ft_atoi(char *str)
 	return (res * sign);
 }
 
-int ft_isdigit(char c)
+int	ft_isdigit(char c)
 {
 	return (c >= '0' && c <= '9');
 }
 
-int ft_inset(char c, char *set)
+int	ft_inset(char c, char *set)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (set[i])

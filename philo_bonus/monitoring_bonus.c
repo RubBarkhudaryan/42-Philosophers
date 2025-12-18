@@ -1,99 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitoring.c                                       :+:      :+:    :+:   */
+/*   monitoring_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:11:31 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/17 17:20:14 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/18 22:18:36 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./philosophers_bonus.h"
 
-static int all_philos_ate(t_data *data)
+int	check_death(t_philo *philo)
 {
-	int i;
-	int fullness;
+	long long	last;
+	long long	now;
 
-	i = -1;
-	fullness = 0;
-	while (++i < data->count && !check_death(data))
+	sem_wait(philo->sems->meal);
+	last = philo->last_meal;
+	sem_post(philo->sems->meal);
+	now = get_time_in_ms();
+	if (now - last >= philo->data->die_time)
 	{
-		pthread_mutex_lock(&data->philos[i].eat_mutex);
-		if (data->must_eat > 0 && data->philos[i].eat_count >= data->must_eat)
-			++fullness;
-		pthread_mutex_unlock(&data->philos[i].eat_mutex);
+		sem_wait(philo->sems->print);
+		print_action(philo, 'd', philo->start_time);
+		exit(EXIT_DEATH);
 	}
-	return (fullness == data->count);
+	return (0);
 }
 
-int check_death(t_data *data)
+int	check_fullness(t_philo *philo)
 {
-	int status;
-
-	pthread_mutex_lock(&data->death_mutex);
-	status = data->dead;
-	pthread_mutex_unlock(&data->death_mutex);
-	return (status);
-}
-
-int check_fullness(t_data *data)
-{
-	int status;
-
-	pthread_mutex_lock(&data->meal_mutex);
-	status = data->full;
-	pthread_mutex_unlock(&data->meal_mutex);
-	return (status);
-}
-
-void *monitoring_death(void *arg)
-{
-	int i;
-	t_data *data;
-
-	data = (t_data *)arg;
-	while (!check_death(data) && !check_fullness(data))
-	{
-		i = -1;
-		while (++i < data->count)
-		{
-			if (get_last_meal(&data->philos[i]) >= data->die)
-			{
-				pthread_mutex_lock(&data->death_mutex);
-				data->dead = 1;
-				pthread_mutex_unlock(&data->death_mutex);
-				pthread_mutex_lock(&data->print_mutex);
-				print_action(&data->philos[i], 'd', data->start_time);
-				pthread_mutex_unlock(&data->print_mutex);
-				return (NULL);
-			}
-		}
-		usleep(100);
-	}
-	return (NULL);
-}
-
-void *eat_monitoring(void *arg)
-{
-	t_data *data;
-
-	data = (t_data *)arg;
-	while (!check_death(data) && !check_fullness(data))
-	{
-		if (all_philos_ate(data))
-		{
-			pthread_mutex_lock(&data->meal_mutex);
-			data->full = 1;
-			pthread_mutex_unlock(&data->meal_mutex);
-			pthread_mutex_lock(&data->print_mutex);
-			print_action(NULL, 'q', data->start_time);
-			pthread_mutex_unlock(&data->print_mutex);
-			return (NULL);
-		}
-		usleep(100);
-	}
-	return (NULL);
+	if (philo->data->must_eat == -1)
+		return (0);
+	return (philo->eat_count >= philo->data->must_eat);
 }

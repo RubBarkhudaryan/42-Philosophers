@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/17 20:29:09 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/18 22:17:43 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 # include <unistd.h>
 # include <sys/types.h>
-# include <sys/wait.h>
 # include <signal.h>
+# include <sys/wait.h>
 # include <pthread.h>
 
 # include <semaphore.h>
@@ -60,35 +60,27 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int			id;
-	pid_t		pid;
 	int			eat_count;
 	long long	start_time;
 	long long	last_meal;
 
 	t_data		*data;
 	t_sems		*sems;
-
-	pthread_t	death_thread;
 }	t_philo;
 
 /*philo utils*/
 bool		is_valid(char **argv);
 void		print_action(t_philo *philo, char action, long long timestamp);
-void		ft_error(int error_status, int opt_arg);
-void		free_data(t_data **data);
-void		ft_usleep(long long ms);
+int			ft_error(int error_status, int opt_arg);
+void		ft_usleep(t_philo *philo, long long ms);
 
-/*monitoring*/
-// void			*monitoring_death(void *data);
-// void			*eat_monitoring(void *arg);
-// int			check_death(t_data *data);
-// int			check_fullness(t_data *data);
-
-/*init utils*/
-// void		cast_str_data(t_data **data, char **argv);
+/*semaphores*/
+void		sem_unlink_all(void);
+void		sem_close_all(t_sems *sems);
 
 /*init functions*/
 t_data		*init_data(char **argv);
+t_sems		*init_semaphores(int count);
 t_philo		*init_philo(t_data *data, int index, t_sems *sems);
 
 /*timer function*/
@@ -105,10 +97,5 @@ int			think_handle(t_philo *philo, t_data *data);
 int			forks_handle(t_philo *philo, t_data *data);
 int			eat_handle(t_philo *philo, t_data *data);
 int			sleep_handle(t_philo *philo, t_data *data);
-
-/*philo actions utils*/
-void		drop_forks(t_philo *philo);
-int			try_pick_forks_evens(t_philo *philo, t_data *data);
-int			try_pick_forks_odds(t_philo *philo, t_data *data);
 
 #endif
