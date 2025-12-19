@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:18:04 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/20 01:20:39 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_usleep(t_philo *philo, long long ms)
 	while (get_time_in_ms() - start < ms)
 	{
 		check_death(philo);
-		usleep(1000);
+		usleep(100);
 	}
 }
 

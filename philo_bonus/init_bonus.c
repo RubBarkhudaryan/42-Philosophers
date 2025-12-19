@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 18:55:47 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:18:56 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/20 02:34:53 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,20 @@ t_sems	*init_semaphores(int count)
 	sems->print = SEM_FAILED;
 	sems->meal = SEM_FAILED;
 	sems->stop = SEM_FAILED;
+	sems->take = SEM_FAILED;
 	sem_unlink_all();
 	sems->forks = sem_open(SEM_FORKS, O_CREAT | O_EXCL, 0644, count);
 	sems->print = sem_open(SEM_PRINT, O_CREAT | O_EXCL, 0644, 1);
 	sems->meal = sem_open(SEM_MEAL, O_CREAT | O_EXCL, 0644, 1);
 	sems->stop = sem_open(SEM_STOP, O_CREAT | O_EXCL, 0644, 1);
+	sems->take = sem_open(SEM_TAKE, O_CREAT | O_EXCL, 0644, 1);
 	if (sems->forks == SEM_FAILED || sems->print == SEM_FAILED
-		|| sems->meal == SEM_FAILED || sems->stop == SEM_FAILED)
+		|| sems->meal == SEM_FAILED || sems->stop == SEM_FAILED
+		|| sems->take == SEM_FAILED)
 	{
 		sem_close_all(sems);
 		sem_unlink_all();
-		free(sems);
-		return (NULL);
+		return (free(sems), NULL);
 	}
 	return (sems);
 }

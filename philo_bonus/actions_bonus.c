@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 19:22:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:25:12 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/20 02:38:47 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,18 @@ int	think_handle(t_philo *philo)
 	return (0);
 }
 
-int	forks_handle(t_philo *philo)
-{
-	if (check_death(philo) || check_fullness(philo))
-		return (1);
-	sem_wait(philo->sems->forks);
-	sem_wait(philo->sems->forks);
-	sem_wait(philo->sems->print);
-	print_action(philo, 'f', philo->start_time);
-	print_action(philo, 'f', philo->start_time);
-	sem_post(philo->sems->print);
-	return (0);
-}
-
 int	eat_handle(t_philo *philo, t_data *data)
 {
 	if (check_death(philo) || check_fullness(philo))
 		return (1);
+	sem_wait(philo->sems->take);
+	sem_wait(philo->sems->forks);
+	sem_wait(philo->sems->forks);
+	sem_post(philo->sems->take);
+	sem_wait(philo->sems->print);
+	print_action(philo, 'f', philo->start_time);
+	print_action(philo, 'f', philo->start_time);
+	sem_post(philo->sems->print);
 	sem_wait(philo->sems->print);
 	print_action(philo, 'e', philo->start_time);
 	sem_post(philo->sems->print);

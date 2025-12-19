@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:25:58 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/20 02:54:29 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ int	wait_all_or_death(t_data *data, pid_t *pids)
 		}
 		++i;
 	}
+	print_action(NULL, 'q', get_time_in_ms());
 	return (EXIT_SATIATED);
 }
 
 void	routine(t_data *data, t_sems *sems, int index)
 {
 	t_philo	*philo;
+	int		status;
 
 	philo = init_philo(data, index, sems);
 	if (!philo)
@@ -59,15 +61,20 @@ void	routine(t_data *data, t_sems *sems, int index)
 		ft_usleep(philo, 1);
 	while (true)
 	{
-		if (forks_handle(philo))
-			return ;
 		if (eat_handle(philo, data))
-			return ;
+			break ;
 		if (sleep_handle(philo, data))
-			return ;
+			break ;
 		if (think_handle(philo))
-			return ;
-		if (philo->data->must_eat != -1 && philo->eat_count >= data->must_eat)
+			break ;
+		if (philo->data->must_eat != -1)
+		{
+			sem_wait(philo->sems->meal);
+			if (philo->eat_count >= philo->data->must_eat)
+				status = 1;
+			sem_post(philo->sems->meal);
+		}
+		if (status)
 			exit(EXIT_SATIATED);
 	}
 	free(philo);

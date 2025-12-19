@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:27:09 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/20 02:34:00 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define SEM_PRINT		"/print"
 # define SEM_MEAL		"/meal"
 # define SEM_STOP		"/stop"
+# define SEM_TAKE		"/take"
 
 # define EXIT_DEATH		1
 # define EXIT_SATIATED	0
@@ -43,6 +44,7 @@ typedef struct s_sems
 	sem_t	*print;
 	sem_t	*meal;
 	sem_t	*stop;
+	sem_t	*take;
 }	t_sems;
 
 /*philo struct*/
@@ -86,7 +88,6 @@ t_philo		*init_philo(t_data *data, int index, t_sems *sems);
 int			check_death(t_philo *philo);
 int			check_fullness(t_philo *philo);
 
-
 /*timer function*/
 long long	get_time_in_ms(void);
 long		get_last_meal(t_philo *philo);
@@ -98,7 +99,6 @@ int			ft_inset(char c, char *set);
 
 /*philo's actions*/
 int			think_handle(t_philo *philo);
-int			forks_handle(t_philo *philo);
 int			eat_handle(t_philo *philo, t_data *data);
 int			sleep_handle(t_philo *philo, t_data *data);
 

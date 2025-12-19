@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 17:14:11 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 22:17:47 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/20 02:41:45 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	sem_unlink_all(void)
 	sem_unlink(SEM_PRINT);
 	sem_unlink(SEM_MEAL);
 	sem_unlink(SEM_STOP);
+	sem_unlink(SEM_TAKE);
 }
 
 void	sem_close_all(t_sems *sems)
@@ -32,4 +33,6 @@ void	sem_close_all(t_sems *sems)
 		sem_close(sems->print);
 	if (sems->stop && sems->stop != SEM_FAILED)
 		sem_close(sems->stop);
+	if (sems->take && sems->take != SEM_FAILED)
+		sem_close(sems->take);
 }
