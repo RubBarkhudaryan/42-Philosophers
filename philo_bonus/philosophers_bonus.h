@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:01:14 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/20 02:34:00 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:26:20 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <signal.h>
 # include <sys/wait.h>
+# include <pthread.h>
 
 # include <semaphore.h>
 # include <fcntl.h>
@@ -55,6 +56,7 @@ typedef struct s_data
 	long long	die_time;
 	long long	eat_time;
 	long long	sleep_time;
+	long long	start_time;
 }	t_data;
 
 /*shared data struct*/
@@ -67,6 +69,7 @@ typedef struct s_philo
 
 	t_data		*data;
 	t_sems		*sems;
+	pthread_t	monitor;
 }	t_philo;
 
 /*philo utils*/
@@ -90,7 +93,6 @@ int			check_fullness(t_philo *philo);
 
 /*timer function*/
 long long	get_time_in_ms(void);
-long		get_last_meal(t_philo *philo);
 
 /*helper functions*/
 int			ft_atoi(char *str);
@@ -104,7 +106,7 @@ int			sleep_handle(t_philo *philo, t_data *data);
 
 /*main utils*/
 void		cleanup_parent(t_data *data, t_sems *sems, pid_t *pids);
-int			wait_all_or_death(t_data *data, pid_t *pids);
+int			wait_all_or_death(t_data *data, pid_t *pids, long long start);
 void		routine(t_data *data, t_sems *sems, int index);
 void		kill_all(pid_t *pids, int ind);
 

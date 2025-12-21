@@ -3,7 +3,7 @@ NAME	=	philo_bonus
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -g3
 
-SRCS	=	main_bonus.c \
+SRCS	=	main_bonus.c routine_bonus.c \
 			init_bonus.c init_utils_bonus.c\
 			actions_bonus.c \
 			semaphores_bonus.c \

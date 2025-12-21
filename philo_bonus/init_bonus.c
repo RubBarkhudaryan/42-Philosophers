@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/04 18:55:47 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/20 02:34:53 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:15:02 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ t_data	*init_data(char **argv)
 	data->must_eat = -1;
 	if (argv[5])
 		data->must_eat = ft_atoi(argv[5]);
+	data->start_time = get_time_in_ms();
 	return (data);
 }

@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/20 01:20:39 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:16:09 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,18 @@ void	print_action(t_philo *philo, char action, long long timestamp)
 		printf("%lld %d died\n", curr_time - timestamp, philo->id);
 	else if (action == 'q')
 		printf("%lld Dinner is over.\n", curr_time - timestamp);
+}
+
+void	cleanup_parent(t_data *data, t_sems *sems, pid_t *pids)
+{
+	if (data)
+		free(data);
+	if (pids)
+		free(pids);
+	if (sems)
+	{
+		sem_close_all(sems);
+		sem_unlink_all();
+		free(sems);
+	}
 }
