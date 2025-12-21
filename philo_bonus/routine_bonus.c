@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 19:06:00 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/21 19:28:32 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/21 19:32:44 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ int	check_fullness(t_philo *philo)
 	}
 	sem_post(philo->sems->meal);
 	return (0);
+}
+
+void	kill_all(pid_t *pids, int ind)
+{
+	int	i;
+
+	i = 0;
+	while (i < ind)
+	{
+		if (pids[i] > 0)
+			kill(pids[i], SIGKILL);
+		++i;
+	}
 }
 
 int	wait_all_or_death(t_data *data, pid_t *pids, long long start)
@@ -86,17 +99,4 @@ void	routine(t_data *data, t_sems *sems, int index)
 	}
 	free(philo);
 	exit(EXIT_SATIATED);
-}
-
-void	kill_all(pid_t *pids, int ind)
-{
-	int	i;
-
-	i = 0;
-	while (i < ind)
-	{
-		if (pids[i] > 0)
-			kill(pids[i], SIGKILL);
-		++i;
-	}
 }
