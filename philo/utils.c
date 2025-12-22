@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/09 18:11:56 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/11/24 20:21:28 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:29:45 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ void	ft_usleep(long long ms)
 void	print_action(t_philo *philo, char action, long long timestamp)
 {
 	long long	curr_time;
+	t_data		*data;
 
 	curr_time = get_time_in_ms();
+	data = philo->data;
+	pthread_mutex_lock(&data->print_mutex);
 	if (action == 'f')
 		printf("%lld %d has taken a fork\n", curr_time - timestamp, philo->id);
 	else if (action == 'e')
@@ -62,4 +65,5 @@ void	print_action(t_philo *philo, char action, long long timestamp)
 		printf("%lld %d died\n", curr_time - timestamp, philo->id);
 	else if (action == 'q')
 		printf("%lld Dinner is over.\n", curr_time - timestamp);
+	pthread_mutex_unlock(&data->print_mutex);
 }

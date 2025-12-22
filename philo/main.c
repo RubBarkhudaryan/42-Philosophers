@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 18:14:03 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/12/18 18:22:09 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:34:35 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	main(int argc, char **argv)
 		i = -1;
 		while (++i < data->count)
 			pthread_mutex_destroy(&data->forks[i]);
-		free_data(&data);
+		if (!data->dead && data->full)
+			print_action(&data->philos[0], 'q', data->start_time);
+		return (free_data(&data), 0);
 	}
-	else
-		ft_error(1, 0);
-	return (0);
+	return (ft_error(1, 0), 1);
 }

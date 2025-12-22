@@ -6,7 +6,7 @@
 /*   By: rbarkhud <rbarkhud@student.42yerevan.am    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 19:11:31 by rbarkhud          #+#    #+#             */
-/*   Updated: 2025/11/24 20:45:49 by rbarkhud         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:32:13 by rbarkhud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ void	*monitoring_death(void *arg)
 				pthread_mutex_lock(&data->death_mutex);
 				data->dead = 1;
 				pthread_mutex_unlock(&data->death_mutex);
-				pthread_mutex_lock(&data->print_mutex);
 				print_action(&data->philos[i], 'd', data->start_time);
-				pthread_mutex_unlock(&data->print_mutex);
 				return (NULL);
 			}
 		}
@@ -88,9 +86,6 @@ void	*eat_monitoring(void *arg)
 			pthread_mutex_lock(&data->meal_mutex);
 			data->full = 1;
 			pthread_mutex_unlock(&data->meal_mutex);
-			pthread_mutex_lock(&data->print_mutex);
-			print_action(NULL, 'q', data->start_time);
-			pthread_mutex_unlock(&data->print_mutex);
 			return (NULL);
 		}
 		usleep(100);

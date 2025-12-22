@@ -19,9 +19,7 @@ int	try_pick_forks_evens(t_philo *philo, t_data *data)
 	pthread_mutex_lock(philo->r_fork);
 	if (check_death(data) || check_fullness(data))
 		return (pthread_mutex_unlock(philo->r_fork), 1);
-	pthread_mutex_lock(&data->print_mutex);
 	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
 	pthread_mutex_lock(philo->l_fork);
 	if (check_death(data) || check_fullness(data))
 	{
@@ -29,9 +27,7 @@ int	try_pick_forks_evens(t_philo *philo, t_data *data)
 		pthread_mutex_unlock(philo->r_fork);
 		return (1);
 	}
-	pthread_mutex_lock(&data->print_mutex);
 	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
 	return (0);
 }
 
@@ -42,9 +38,7 @@ int	try_pick_forks_odds(t_philo *philo, t_data *data)
 	pthread_mutex_lock(philo->l_fork);
 	if (check_death(data) || check_fullness(data))
 		return (pthread_mutex_unlock(philo->l_fork), 1);
-	pthread_mutex_lock(&data->print_mutex);
 	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
 	pthread_mutex_lock(philo->r_fork);
 	if (check_death(data) || check_fullness(data))
 	{
@@ -52,9 +46,7 @@ int	try_pick_forks_odds(t_philo *philo, t_data *data)
 		pthread_mutex_unlock(philo->l_fork);
 		return (1);
 	}
-	pthread_mutex_lock(&data->print_mutex);
 	print_action(philo, 'f', data->start_time);
-	pthread_mutex_unlock(&data->print_mutex);
 	return (0);
 }
 
